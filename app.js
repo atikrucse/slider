@@ -109,7 +109,12 @@ const changeSlide = (index) => {
 
   items[index].style.display = "block"
 }
-
+// Press Enter key to search code 
+search.addEventListener('keypress', function(e){
+  if (e.key == 'Enter') {
+    searchBtn.click();
+  }
+});
 
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';

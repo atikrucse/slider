@@ -40,7 +40,7 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
+
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
@@ -78,10 +78,23 @@ const createSlider = () => {
     sliderContainer.appendChild(item)
   })
   changeSlide(0)
-  timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
-  }, duration);
+  // Check Slide Change Duration is negative or Positive
+  if (duration > 0) {
+    timer = setInterval(function () {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }, duration);
+
+  }
+  else {
+    const promptValue = prompt('Sliding Time Can not be Negative. Please give a Positive Value');
+    if (promptValue > 0) {
+      timer = setInterval(function () {
+        slideIndex++;
+        changeSlide(slideIndex);
+      }, promptValue);
+    }
+  }
 }
 
 // change slider index 
@@ -110,7 +123,7 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 // Press Enter key to search code 
-search.addEventListener('keypress', function(e){
+search.addEventListener('keypress', function (e) {
   if (e.key == 'Enter') {
     searchBtn.click();
   }
@@ -119,7 +132,6 @@ search.addEventListener('keypress', function(e){
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
-  //const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
 })
